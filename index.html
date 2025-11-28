@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Уютный дом — хостел</title>
+
+  <style>
+
+    /* --------------------------
+       ОСНОВНЫЕ ПЕРЕМЕННЫЕ ТЕМЫ
+    --------------------------- */
+    :root {
+      --bg: #f4f4f4;
+      --text: #222;
+      --card-bg: #fff;
+      --accent: #c62828;
+      --accent-dark: #a41f1f;
+      --shadow: rgba(0,0,0,0.08);
+      --shadow-strong: rgba(0,0,0,0.12);
+    }
+
+    /* Тёмная тема */
+    body.dark {
+      --bg: #181818;
+      --text: #e6e6e6;
+      --card-bg: #242424;
+      --shadow: rgba(255,255,255,0.06);
+      --shadow-strong: rgba(255,255,255,0.12);
+    }
+
+    /* --------------------------
+       ОБЩИЙ СТИЛЬ
+    --------------------------- */
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Segoe UI", Arial, sans-serif;
+      transition: background .3s, color .3s;
+    }
+
+    /* Прелоадер */
+    #loader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: .4s;
+      z-index: 999;
+    }
+    #loader.fade {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* --------------------------
+       ШАПКА
+    --------------------------- */
+    header {
+      background: var(--card-bg);
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      box-shadow: 0 2px 12px var(--shadow);
+      z-index: 10;
+      transition: background .3s;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--accent);
+      font-size: 26px;
+      font-weight: 700;
+      text-shadow: 0 1px 3px var(--shadow);
+    }
+    #slogan { margin-top: 2px; font-size: 13px; opacity: .7; }
+
+    /* ЯзЫки с флагами */
+    .lang img {
+      width: 28px;
+      height: 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-left: 10px;
+      transition: transform .2s, box-shadow .2s;
+      box-shadow: 0 2px 5px var(--shadow);
+    }
+    .lang img:hover {
+      transform: scale(1.12);
+      box-shadow: 0 3px 6px var(--shadow-strong);
+    }
+    .lang img.active {
+      outline: 2px solid var(--accent);
+    }
+
+    /* Переключатель темы */
+    #themeToggle {
+      cursor: pointer;
+      margin-left: 15px;
+      font-size: 22px;
+      line-height: 22px;
+      transition: .3s;
+    }
+    #themeToggle:hover { transform: scale(1.12); }
+
+    /* --------------------------
+       ОСНОВНОЙ КОНТЕНТ
+    --------------------------- */
+
+    main {
+      padding: 18px;
+      max-width: 960px;
+      margin: auto;
+      animation: fadeIn .7s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    section {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 10px var(--shadow);
+      animation: appear .6s ease;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(15px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--accent);
+      font-size: 22px;
+    }
+
+    /* Кнопка */
+    .btn {
+      background: var(--accent);
+      color: white;
+      padding: 12px 20px;
+      display: inline-block;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 10px;
+      transition: .2s;
+      box-shadow: 0 2px 6px var(--shadow-strong);
+    }
+    .btn:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+    /* --------------------------
+       ГАЛЕРЕЯ
+    --------------------------- */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      opacity: 0;
+      transform: scale(.95);
+      transition: .5s;
+      box-shadow: 0 2px 8px var(--shadow);
+    }
+    .gallery img.loaded {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 260px;
+      border: 0;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px var(--shadow);
+    }
+
+    .contacts a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div id="loader">Загрузка…</div>
+
+<header>
+  <div>
+    <h1 id="site_title">Уютный дом</h1>
+    <div id="slogan">Хостел в Москве</div>
+  </div>
+
+  <div style="display:flex;align-items:center;">
+    <div class="lang">
+      <img data-lang="ru" src="flag_russia.png">
+      <img data-lang="ky" src="flag_kyrgyzstan.png">
+      <img data-lang="uz" src="flag_uzbekistan.png">
+      <img data-lang="tg" src="flag_tajikistan.png">
+    </div>
+
+    <div id="themeToggle">🌙</div>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2 id="about_title">О нашем хостеле</h2>
+    <p id="about_text">
+      В хостеле есть высокоскоростной Wi-Fi, парковка, горячая вода, чистое бельё, регулярная уборка и доброжелательный персонал. Частная территория для прогулок.
+    </p>
+    <p id="price"><strong>Стоимость проживания — от 600 рублей в сутки</strong></p>
+    <a id="book_btn" class="btn" href="https://wa.me/79911365154" target="_blank">Забронировать</a>
+  </section>
+
+  <section>
+    <h2 id="gallery_title">Фотогалерея</h2>
+    <div class="gallery">
+      <img src="11dd7a48-42c8-4c77-9c7e-d8d2efa00501.jpg">
+      <img src="3a5eeb75-9b19-4239-ab1b-bb10e434759c.jpg">
+      <img src="77939dcd-e6ee-4f99-9cdd-34103fdb7b69.jpg">
+      <img src="77f60df2-dbe9-4801-b9ee-a63c16415e71.jpg">
+      <img src="df4b7cb2-2e40-4443-9258-bf3d6475dbed.jpg">
+      <img src="e1e0123f-7bef-4c9d-9649-1ea7e6a59037.jpg">
+    </div>
+  </section>
+
+  <section>
+    <h2 id="map_title">Мы на карте</h2>
+    <iframe src="https://yandex.ru/map-widget/v1/?ll=37.811114%2C55.789679&z=17&pt=37.811114,55.789679,pm2rdm"></iframe>
+  </section>
+
+  <section>
+    <h2 id="contacts_title">Контакты</h2>
+    <div class="contacts">
+      📞 <a href="tel:+79911365154">+7 991 136-51-54</a><br>
+      ✉️ <a href="mailto:natasha.colomoets@yandex.ru">natasha.colomoets@yandex.ru</a><br>
+      💬 <a href="https://wa.me/79911365154" target="_blank">Написать в WhatsApp</a>
+    </div>
+  </section>
+
+</main>
+
+<script>
+/* --------------------------------
+   ОФЛАЙН-СПРАВОЧНИК ПЕРЕВОДОВ
+---------------------------------- */
+const dict = {
+  ru:{site_title:"Уютный дом",about_title:"О нашем хостеле",
+    about_text:"В хостеле есть высокоскоростной Wi-Fi, парковка, горячая вода...",
+    price:"Стоимость проживания — от 600 рублей в сутки",
+    book:"Забронировать",gallery_title:"Фотогалерея",
+    map_title:"Мы на карте",contacts_title:"Контакты"},
+
+  ky:{site_title:"Уютный дом",about_title:"Биздин хостел жөнүндө",
+    about_text:"Хостелде ылдам Wi-Fi, унаа токтотуучу жай...",
+    price:"Баасы — суткасына 600 рублдан",
+    book:"Брондоо",gallery_title:"Сүрөттөр",
+    map_title:"Картада",contacts_title:"Байланыштар"},
+
+  uz:{site_title:"Uyutny dom",about_title:"Hostel haqida",
+    about_text:"Hostelda yuqori tezlikdagi Wi-Fi...",
+    price:"Narxi — sutkasi 600 rubl dan",
+    book:"Band qilish",gallery_title:"Fotogalereya",
+    map_title:"Xaritada",contacts_title:"Aloqa"},
+
+  tg:{site_title:"Уютный дом",about_title:"Дар бораи хостел",
+    about_text:"Дар хостел Wi-Fi-и тез...",
+    price:"Арзиши будубош — аз 600 рубл дар як рӯз",
+    book:"Брон кардан",gallery_title:"Аксҳо",
+    map_title:"Дар харита",contacts_title:"Тамос"}
+};
+
+/* ------------------------------
+   ФУНКЦИЯ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА
+------------------------------- */
+function setLang(l){
+  const t=dict[l];
+  site_title.textContent=t.site_title;
+  about_title.textContent=t.about_title;
+  about_text.textContent=t.about_text;
+  price.textContent=t.price;
+  book_btn.textContent=t.book;
+  gallery_title.textContent=t.gallery_title;
+  map_title.textContent=t.map_title;
+  contacts_title.textContent=t.contacts_title;
+
+  document.querySelectorAll(".lang img")
+    .forEach(x=>x.classList.toggle("active",x.dataset.lang===l));
+
+  localStorage.setItem("lang",l);
+}
+
+document.querySelectorAll(".lang img")
+  .forEach(i=>i.onclick=()=>setLang(i.dataset.lang));
+
+setLang(localStorage.getItem("lang")||"ru");
+
+
+/* ------------------------------
+   ЗАГРУЗКА ФОТО С АНИМАЦИЕЙ
+------------------------------- */
+document.querySelectorAll(".gallery img").forEach(img=>{
+  img.onload = ()=> img.classList.add("loaded");
+});
+
+
+/* ------------------------------
+   ПЕРЕКЛЮЧАТЕЛЬ ТЁМНОЙ ТЕМЫ
+------------------------------- */
+let dark=localStorage.getItem("dark")==="1";
+function applyTheme(){
+  document.body.classList.toggle("dark",dark);
+  themeToggle.textContent=dark?"☀️":"🌙";
+}
+applyTheme();
+
+themeToggle.onclick=()=>{
+  dark=!dark;
+  localStorage.setItem("dark",dark?1:0);
+  applyTheme();
+};
+
+
+/* ------------------------------
+   СКРЫТЬ ПРЕЛОАДЕР
+------------------------------- */
+window.onload=()=> setTimeout(()=> loader.classList.add("fade"),200);
+</script>
+
+</body>
+</html>
