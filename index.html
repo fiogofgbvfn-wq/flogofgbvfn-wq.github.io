@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Уютный дом — хостел</title>
+
+<style>
+  :root {
+    --bg: #ffffff;
+    --text: #000000;
+    --card: #ffffff;
+    --accent: #c62828;
+  }
+
+  [data-theme="dark"] {
+    --bg: #111111;
+    --text: #ffffff;
+    --card: #1a1a1a;
+    --accent: #ff5252;
+  }
+
+  body {
+    margin: 0;
+    padding: 20px;
+    font-family: "Inter", system-ui, Arial;
+    background: var(--bg);
+    color: var(--text);
+    transition: 0.3s;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  h1 {
+    margin: 0 0 6px;
+    font-size: 28px;
+    color: var(--accent);
+  }
+
+  .lang a {
+    margin-left: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 0.7;
+  }
+
+  .lang a.active {
+    opacity: 1;
+  }
+
+  #themeToggle {
+    font-size: 24px;
+    cursor: pointer;
+    margin-left: 12px;
+  }
+
+  h2 {
+    color: var(--accent);
+    margin-top: 22px;
+  }
+
+  .btn {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-decoration: none;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 14px;
+  }
+
+  .gallery img {
+    width: 100%;
+    border-radius: 10px;
+    height: 180px;
+    object-fit: cover;
+  }
+
+  .map-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-top: 14px;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1 id="site_title">Уютный дом</h1>
+    <div id="slogan" style="font-size:14px; opacity:0.7">Хостел в Москве</div>
+  </div>
+
+  <div style="display:flex; align-items:center;">
+    <div class="lang">
+      <a data-lang="ru">🇷🇺</a>
+      <a data-lang="ky">🇰🇬</a>
+      <a data-lang="uz">🇺🇿</a>
+      <a data-lang="tg">🇹🇯</a>
+    </div>
+    <span id="themeToggle">🌙</span>
+  </div>
+</header>
+
+<main>
+
+  <section>
+    <h2 id="about_title">О нашем хостеле</h2>
+    <p id="about_text">
+      В хостеле есть высокоскоростной Wi-Fi, парковка, горячая вода, чистое бельё,
+      регулярная уборка и доброжелательный персонал. Частная территория для прогулок.
+      Наш хостел идеально подходит для комфортного и безопасного проживания.
+    </p>
+
+    <p id="price"><strong>Стоимость проживания — от 600 рублей в сутки</strong></p>
+
+    <a id="book_btn" class="btn" href="https://wa.me/79911365154" target="_blank">Забронировать</a>
+  </section>
+
+  <section>
+    <h2 id="gallery_title">Фотогалерея</h2>
+
+    <div class="gallery">
+      <img src="11dd7a48-42c8-4c77-9c7e-d8d2efa00501.jpg">
+      <img src="3a5eeb75-9b19-4239-ab1b-bb10e434759c.jpg">
+      <img src="77939dcd-e6ee-4f99-9cdd-34103dfb7b69.jpg">
+      <img src="77f60df2-dbe9-4801-b9ee-a63c16415e71.jpg">
+      <img src="df4b7cb2-2e40-4443-9258-bf3d6475dbed.jpg">
+      <img src="e1e0123f-7bef-4c9d-9649-1ea7e6a59037.jpg">
+    </div>
+  </section>
+
+  <section>
+    <h2 id="map_title">Мы на карте</h2>
+
+    <div class="map-box">
+      <iframe src="https://yandex.ru/map-widget/v1/?ll=37.811114%2C55.789679&z=17&pt=37.811114,55.789679,pm2rdl">
+      </iframe>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="contacts_title">Контакты</h2>
+    📞 <a href="tel:+79911365154">+7 991 136-51-54</a><br>
+    ✉️ <a href="mailto:natasha.colomoets@yandex.ru">natasha.colomoets@yandex.ru</a><br>
+    💬 <a href="https://wa.me/79911365154" target="_blank">Написать в WhatsApp</a>
+  </section>
+
+</main>
+
+<script>
+/* ======================================
+      ПЕРЕВОДЧИК (полностью офлайн)
+====================================== */
+const texts = {
+  ru: {
+    site_title: "Уютный дом",
+    about_title: "О нашем хостеле",
+    about_text:
+      "В хостеле есть высокоскоростной Wi-Fi, парковка, горячая вода, чистое бельё, регулярная уборка и доброжелательный персонал. Частная территория для прогулок. Наш хостел идеально подходит для комфортного и безопасного проживания.",
+    price: "Стоимость проживания — от 600 рублей в сутки",
+    gallery_title: "Фотогалерея",
+    map_title: "Мы на карте",
+    contacts_title: "Контакты",
+    book_btn: "Забронировать"
+  },
+
+  ky: {
+    site_title: "Уютный дом",
+    about_title: "Биздин хостел жөнүндө",
+    about_text:
+      "Хостелде жогорку ылдамдыктагы Wi-Fi, токтоочу жай, ысык суу, таза жайма, үзгүлтүксүз тазалоо жана жылуу мамилелүү кызматкерлер бар. Жеке сейилдөө аймагы бар. Хостел коопсуз жана жайлуу жашоо үчүн эң жакшы орун.",
+    price: "Баасы — суткасына 600 рублдан",
+    gallery_title: "Сүрөт галереясы",
+    map_title: "Картада",
+    contacts_title: "Байланыштар",
+    book_btn: "Брондоо"
+  },
+
+  uz: {
+    site_title: "Uyutny dom",
+    about_title: "Hostel haqida",
+    about_text:
+      "Hostelda yuqori tezlikdagi Wi-Fi, avtoturargoh, issiq suv, toza choyshablar, muntazam tozalash va samimiy xodimlar mavjud. Dam olish uchun shaxsiy hudud mavjud. Hostel xavfsiz va qulay yashash uchun ideal joy.",
+    price: "Narxi — sutkasi 600 rubl dan",
+    gallery_title: "Fotogalereya",
+    map_title: "Xaritada",
+    contacts_title: "Aloqa",
+    book_btn: "Band qilish"
+  },
+
+  tg: {
+    site_title: "Уютный дом",
+    about_title: "Дар бораи хостел",
+    about_text:
+      "Дар хостел Wi-Fi бо суръати баланд, таваққуфгоҳ, оби гарм, маводи хоб тозаву озода, тозакунии мунтазам ва кормандони меҳрубон мавҷуд аст. Минтақаи хусусии истироҳат низ ҳаст. Хостел барои иқомати роҳат ва амн беҳтарин аст.",
+    price: "Арзиши будубош — аз 600 рубл дар як рӯз",
+    gallery_title: "Аксҳо",
+    map_title: "Дар харита",
+    contacts_title: "Тамос",
+    book_btn: "Брон кардан"
+  }
+};
+
+function setLang(lang) {
+  const t = texts[lang];
+  document.getElementById("site_title").textContent = t.site_title;
+  document.getElementById("about_title").textContent = t.about_title;
+  document.getElementById("about_text").textContent = t.about_text;
+  document.getElementById("price").textContent = t.price;
+  document.getElementById("gallery_title").textContent = t.gallery_title;
+  document.getElementById("map_title").textContent = t.map_title;
+  document.getElementById("contacts_title").textContent = t.contacts_title;
+  document.getElementById("book_btn").textContent = t.book_btn;
+
+  document.querySelectorAll(".lang a").forEach(a =>
+    a.classList.toggle("active", a.dataset.lang === lang)
+  );
+
+  localStorage.setItem("lang", lang);
+}
+
+document.querySelectorAll(".lang a").forEach(a =>
+  a.addEventListener("click", () => setLang(a.dataset.lang))
+);
+
+setLang(localStorage.getItem("lang") || "ru");
+
+/* ======================================
+           ТЁМНАЯ/СВЕТЛАЯ ТЕМА
+====================================== */
+
+function setTheme(mode) {
+  document.documentElement.setAttribute("data-theme", mode);
+  localStorage.setItem("theme", mode);
+  document.getElementById("themeToggle").textContent =
+    mode === "dark" ? "🌞" : "🌙";
+}
+
+const savedTheme = localStorage.getItem("theme") || "light";
+setTheme(savedTheme);
+
+document.getElementById("themeToggle").onclick = () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  setTheme(current === "dark" ? "light" : "dark");
+};
+
+</script>
+
+</body>
+</html>
